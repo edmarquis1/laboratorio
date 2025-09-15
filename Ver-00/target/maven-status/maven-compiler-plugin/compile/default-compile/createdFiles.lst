@@ -1,0 +1,5 @@
+com\warQR\Ver\_0\Application.class
+com\warQR\Ver_0\service\PrestamoService.class
+com\warQR\Ver_0\repository\PrestamoRepository.class
+com\warQR\Ver_0\controller\PrestamoController.class
+com\warQR\Ver_0\model\Prestamo.class

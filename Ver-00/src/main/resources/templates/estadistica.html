@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Estadísticas de Préstamos</title>
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="container mt-4">
+<h1>Estadísticas de Préstamos</h1>
+<a th:href="@{/prestamos}" class="btn btn-primary mb-3">Volver</a>
+<div class="row">
+<div class="col-md-6">
+<h3>Préstamos por Elemento</h3>
+<canvas id="elementosChart"></canvas>
+</div>
+<div class="col-md-6">
+<h3>Préstamos por Solicitante</h3>
+<canvas id="solicitantesChart"></canvas>
+</div>
+</div>
+</div>
+<script th:inline="javascript">
+/*<![CDATA[*/
+// Datos para el gráfico de elementos
+var elementosData = {
+labels: [[${estadisticasElementos.![#this[0]}]],
+datasets: [{
+label: 'Préstamos por Elemento',
+data: [[${estadisticasElementos.![#this[1]}]],
+backgroundColor: [
+'rgba(255, 99, 132, 0.7)',
+'rgba(54, 162, 235, 0.7)',
+'rgba(255, 206, 86, 0.7)',
+'rgba(75, 192, 192, 0.7)',
+'rgba(153, 102, 255, 0.7)'
+]
+}]
+};
+// Datos para el gráfico de solicitantes
+var solicitantesData = {
+labels: [[${estadisticasSolicitantes.![#this[0]}]],
+datasets: [{
+label: 'Préstamos por Solicitante',
+data: [[${estadisticasSolicitantes.![#this[1]}]],
+backgroundColor: [
+'rgba(255, 159, 64, 0.7)',
+'rgba(199, 199, 199, 0.7)',
+'rgba(83, 102, 255, 0.7)',
+'rgba(40, 159, 64, 0.7)',
+'rgba(210, 99, 132, 0.7)'
+]
+}]
+};
+// Configuración común para los gráficos
+var config = {
+type: 'pie',
+data: {},
+options: {
+responsive: true,
+plugins: {
+legend: {
+position: 'top',
+},
+title: {
+display: true,
+text: ''
+}
+}
+}
+};
+// Crear gráfico de elementos
+var elementosConfig = JSON.parse(JSON.stringify(config));
+elementosConfig.data = elementosData;
+new Chart(
+document.getElementById('elementosChart'),
+elementosConfig
+);
+// Crear gráfico de solicitantes
+var solicitantesConfig = JSON.parse(JSON.stringify(config));
+solicitantesConfig.data = solicitantesData;
+new Chart(
+document.getElementById('solicitantesChart'),
+solicitantesConfig
+);
+/*]]>*/
+</script>
+</body>
+</html>
